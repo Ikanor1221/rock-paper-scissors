@@ -1,10 +1,13 @@
-function parseUserSelection(selection) {
+//The game has 5 rounds with DRAW being possible.
+
+
+function parseUserSelection(selection) { //User selection is validated
     selection = selection.toLowerCase();
     if (selection=="rock" || selection=="paper" || selection=="scissors" || selection=="stop") return selection;
     else return;
 }
 
-function getComputerSelection() {
+function getComputerSelection() {   //Random computer selection is generated
     let number = Math.floor(Math.random()*3);
 
     switch (number) {
@@ -21,7 +24,7 @@ function getComputerSelection() {
     };
 }
 
-function compare(selection1, selection2) {
+function compare(selection1, selection2) { //Compare two selections
 
     switch (selection1) {
         case "rock": 
@@ -49,7 +52,8 @@ function compare(selection1, selection2) {
 
 
 function main() {
-    let userSelection;
+
+    let userSelection;  
     let computerSelection;
     let result;
 
@@ -57,19 +61,19 @@ function main() {
     let computerScore = 0;
 
 
-    for (let i = 0; i<5; i++){
+    for (let i = 0; i<5; i++){  //5 rounds are initiated
 
         userSelection = prompt("Enter your selection (rock, paper, scissors): ");
         userSelection = parseUserSelection(userSelection);
         console.log("User selection: " + userSelection);
 
-        if (!userSelection) {
+        if (!userSelection) {   //If not defined input demand another input
             i-=1;
             console.log("Wrong selection! Try again!");
             continue;
         }
 
-        if (userSelection=="stop") {
+        if (userSelection=="stop") {    //Stop if user demands
             console.log("The script is stopped.");
             break;
         }
@@ -77,7 +81,7 @@ function main() {
         computerSelection = getComputerSelection();
         result = compare(userSelection, computerSelection);
         
-        switch (result) {
+        switch (result) {   //Analyse the results of the round
             case 0:
                 console.log("Round result: Draw!"); 
                 break;
@@ -92,7 +96,7 @@ function main() {
         }
     }
 
-    switch (true) {
+    switch (true) { //Analyse the results of the game
         case userScore==computerScore: 
             console.log("NOBODY WON THE GAME!");
             break;
@@ -107,7 +111,5 @@ function main() {
     return;
 }
 
-main();
+main(); //Start the game
 
-// let selection = prompt("Enter your choice (rock, paper or scissors): ");
-// console.log(compare("paper", "scissors"));

@@ -1,46 +1,81 @@
 //The game has 5 rounds with DRAW being possible.
 
+function main() {   //3 buttons are found and event listeners are attached
 
-function parseUserSelection(selection) { //User selection is validated
-    selection = selection.toLowerCase();
-    if (selection=="rock" || selection=="paper" || selection=="scissors" || selection=="stop") return selection;
-    else return;
+    let buttonRock = document.getElementById("buttonRock");
+    let buttonPaper = document.getElementById("buttonPaper");
+    let buttonScissors = document.getElementById("buttonScissors");
+
+    buttonRock.addEventListener("click", buttonPressed);
+    buttonPaper.addEventListener("click", buttonPressed);
+    buttonScissors.addEventListener("click", buttonPressed);
+
 }
 
-function getComputerSelection() {   //Random computer selection is generated
+function buttonPressed(e) { //Function is launched every time the rock/ paper/ scissors button is pressed
+
+    let userSelection = generateUserSelection(this.id);
+    let computerSelection = getComputerSelection();
+    let result = compare(userSelection, computerSelection);
+    changeWebpage(result);
+    checkCondition();
+
+}
+
+function generateUserSelection(buttonSelectionId) {   //Certain keyword is generated and returned each time the related button is pressed
+
+    let playerEmojiResult = document.getElementById("playerEmojiResult");   //Player icon for selection is adjusted
+
+    switch (buttonSelectionId) {
+        case "buttonRock":
+            playerEmojiResult.innerHTML = "&#9994";
+            return "rock";
+        case "buttonPaper":
+            playerEmojiResult.innerHTML = "&#9995";
+            return "paper";
+        case "buttonScissors":
+            playerEmojiResult.innerHTML = "&#9996";
+            return "scissors"; 
+    }
+
+}
+
+function getComputerSelection() {   //Random computer selection is generated and keyword is returned
+
     let number = Math.floor(Math.random()*3);
+    let pcomputerEmojiResult = document.getElementById("computerEmojiResult");  //Computer icon for selection is adjusted
 
     switch (number) {
-        case 0: 
-            console.log("Computer selection: rock");
+        case 0:
+            computerEmojiResult.innerHTML = "&#9994";
             return "rock";
-        case 1: 
-            console.log("Computer selection: paper");
+        case 1:
+            computerEmojiResult.innerHTML = "&#9995";
             return "paper";
-        case 2: 
-            console.log("Computer selection: scissors");
+        case 2:
+            computerEmojiResult.innerHTML = "&#9996";
             return "scissors";
-        default: return;
     };
 }
 
-function compare(selection1, selection2) { //Compare two selections
+function compare(selectionUser, selectionComputer) { //Compare two keywords from user and computer and return the winner's number
+                                                     //0 for draw, 1 for user wictroy, 2 for computer victory
 
-    switch (selection1) {
+    switch (selectionUser) {
         case "rock": 
-            switch (selection2) {
+            switch (selectionComputer) {
                 case "rock": return 0;
                 case "paper": return 2;
                 case "scissors": return 1; 
             }
         case "paper":
-            switch (selection2) {
+            switch (selectionComputer) {
                 case "rock": return 1;
                 case "paper": return 0;
                 case "scissors": return 2; 
             }
         case "scissors":
-            switch (selection2) {
+            switch (selectionComputer) {
                 case "rock": return 2;
                 case "paper": return 1;
                 case "scissors": return 0; 
@@ -50,66 +85,68 @@ function compare(selection1, selection2) { //Compare two selections
 
 }
 
+function changeWebpage(result) {    //According to results make changes to the webpage
 
-function main() {
+    let announcement1 = document.getElementById("announcement1");   //Get both announcement elements and score elements
+    let announcement2 = document.getElementById("announcement2");
+    let playerTextResult = document.getElementById("playerTextResult");
+    let computerTextResult = document.getElementById("computerTextResult");
 
-    let userSelection;  
-    let computerSelection;
-    let result;
+    let newScore;
 
-    let userScore = 0;
-    let computerScore = 0;
-
-
-    for (let i = 0; i<5; i++){  //5 rounds are initiated
-
-        userSelection = prompt("Enter your selection (rock, paper, scissors): ");
-        userSelection = parseUserSelection(userSelection);
-        console.log("User selection: " + userSelection);
-
-        if (!userSelection) {   //If not defined input demand another input
-            i-=1;
-            console.log("Wrong selection! Try again!");
-            continue;
-        }
-
-        if (userSelection=="stop") {    //Stop if user demands
-            console.log("The script is stopped.");
+    switch (result) {   //Make changes to elements according to the results
+        case 0:
+            announcement1.innerHTML = "Draw!";
+            announcement2.innerHTML = "Nobody won."; 
             break;
-        }
-        
-        computerSelection = getComputerSelection();
-        result = compare(userSelection, computerSelection);
-        
-        switch (result) {   //Analyse the results of the round
-            case 0:
-                console.log("Round result: Draw!"); 
-                break;
-            case 1:
-                userScore+=1; 
-                console.log("Round result: User won the round!"); 
-                break;
-            case 2: 
-                computerScore+=1;
-                console.log("Round result: Computer won the round!"); 
-                break; 
-        }
+        case 1:
+            announcement1.innerHTML = "You won the round!";
+            announcement2.innerHTML = "Congratulations.";
+            newScore = +playerTextResult.innerHTML[playerTextResult.innerHTML.length-1] + 1;
+            playerTextResult.innerHTML = playerTextResult.innerHTML.slice(0, -1) + newScore; 
+            break;
+        case 2: 
+            announcement1.innerHTML = "Computer won the round!";
+            announcement2.innerHTML = "Better luck next time.";
+            newScore = +computerTextResult.innerHTML[computerTextResult.innerHTML.length-1] + 1;
+            computerTextResult.innerHTML = computerTextResult.innerHTML.slice(0, -1) + newScore; 
+            break; 
     }
-
-    switch (true) { //Analyse the results of the game
-        case userScore==computerScore: 
-            console.log("NOBODY WON THE GAME!");
-            break;
-        case userScore>=computerScore: 
-            console.log("USER WON THE GAME!");
-            break;
-        case userScore<=computerScore: 
-            console.log("COMPUTER WON THE GAME!");
-            break;
-    }
-    
     return;
+
 }
 
-main(); //Start the game
+function checkCondition() { //Checks if any player have reached the score of 5 points
 
+    let playerTextResult = document.getElementById("playerTextResult");         //Get score elements 
+    let computerTextResult = document.getElementById("computerTextResult");
+
+    let playerScore = +playerTextResult.innerHTML[playerTextResult.innerHTML.length-1];         //Extract the score
+    let computerScore = +computerTextResult.innerHTML[computerTextResult.innerHTML.length-1];
+
+    let announcement1 = document.getElementById("announcement1");   //Get announcement elements
+    let announcement2 = document.getElementById("announcement2");
+
+    let buttonRock = document.getElementById("buttonRock");         //Get button elements
+    let buttonPaper = document.getElementById("buttonPaper");
+    let buttonScissors = document.getElementById("buttonScissors");
+
+    switch (true) {             //If any player has reached the score of 5 then turn off the buttons and display the relevant message
+        case playerScore==5: 
+            announcement1.innerHTML = "PLAYER WON THE GAME!";
+            announcement2.innerHTML = "Reload the page to play again";
+            buttonRock.removeEventListener("click", buttonPressed)
+            buttonPaper.removeEventListener("click", buttonPressed)
+            buttonScissors.removeEventListener("click", buttonPressed)
+            break;
+        case computerScore==5:
+            announcement1.innerHTML = "COMPUTER WON THE GAME!";
+            announcement2.innerHTML = "Reload the page to play again";
+            buttonRock.removeEventListener("click", buttonPressed)
+            buttonPaper.removeEventListener("click", buttonPressed)
+            buttonScissors.removeEventListener("click", buttonPressed)
+            break;
+    }
+}
+
+main();

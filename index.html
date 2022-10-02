@@ -4,10 +4,57 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="icon" href="favicon.ico">
+    <link href="http://fonts.cdnfonts.com/css/games" rel="stylesheet">
 </head>
 <body>
     
+    <div class="header">
+        <h1>ROCK PAPER SCISSORS</h1>
+    </div>
+    <div class="content">
+        <div class="row1">
+            <div class="top">
+                <p id="announcement1">Choose your weapon</p>
+            </div>
+            <div class="bottom">
+                <p id="announcement2">First to score 5 points wins the game</p>
+            </div>
+        </div>
+        <div class="row2">
+            <div class="card player left">
+                <div class="top">
+                    <p id="playerEmojiResult">&#10068</p>
+                </div>
+                <div class="bottom">
+                    <p id="playerTextResult">Player: 0</p>
+                </div>
+            </div>
+            <div class="card coomputer right">
+                <div class="top">
+                    <p id="computerEmojiResult">&#10068</p>
+                </div>
+                <div class="bottom">
+                    <p id="computerTextResult">Computer: 0</p>
+                </div>
+            </div>
+        </div>
+        <div class="row3">
+            <div class="column1">
+                <button id="buttonRock">&#9994</button>
+            </div>
+            <div class="column2">
+                <button id="buttonPaper">&#9995</button>
+            </div>
+            <div class="column3">
+                <button id="buttonScissors">&#9996</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer">Contact me: ilya.bochkov97@gmail.com</div>
+
     <script src="javascript.js"></script>
 </body>
 </html>

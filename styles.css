@@ -1,0 +1,130 @@
+:root { 
+    --primary-light: #ddd;
+    --primary-dark: #222831;
+    --secondary-dark: #393e46;
+    --secondary-dark-hover: #4a4f57;
+    --secondary-dark-active: #5b5f68;
+    --header: #111720;
+    --footer: #111720;
+    --primary-yellow: #fac650;
+}
+
+html {
+    overflow-y: hidden;
+  }
+
+body * {
+    all: unset;
+    box-sizing: border-box;
+}
+
+body {
+    color: var(--primary-light);
+    background-color: var(--primary-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    font-weight: 700;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 50px;
+}
+
+.header {
+    background-color: var(--header);
+    color: var(--primary-yellow);
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    font-family: 'Games', sans-serif;
+    font-weight: 400;
+}
+
+.footer {
+    background-color: var(--footer);
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.row1{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.row1 .top{
+    font-size: 30px;
+}
+
+.row2 {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 120px;
+}
+
+.row2 .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.row2 .card .top {
+    font-size: 100px;
+}
+
+.row2 .card .bottom {
+    font-size: 20px;
+}
+
+.row3 {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.row3 button {
+    height: 200px;
+    width: 200px;
+    background-color: var(--secondary-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+    border-radius: 20px;
+}
+
+.row3 button:hover {
+    transform: scale(1.05);
+    background-color: var(--secondary-dark-hover);
+}
+
+.row3 button:active {
+    background-color: var(--secondary-dark-active);
+}
